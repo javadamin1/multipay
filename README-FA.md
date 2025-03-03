@@ -75,6 +75,7 @@
 - [پی‌پینگ](https://www.payping.ir/) :heavy_check_mark:
 - [پی‌استار](http://paystar.ir/) :heavy_check_mark:
 - [پولام](https://poolam.ir/) :heavy_check_mark:
+- [پرداخت نوین](https://www.pna.co.ir/) :heavy_check_mark:
 - [رایان‌پی](https://rayanpay.com/) :heavy_check_mark:
 - [سداد (ملی)](https://sadadpsp.ir/) :heavy_check_mark:
 - [سامان](https://www.sep.ir) :heavy_check_mark:
@@ -82,6 +83,7 @@
 - [سپهر (صادرات)](https://www.sepehrpay.com/) :heavy_check_mark:
 - [سپرده](https://sepordeh.com/) :heavy_check_mark:
 - [سیزپی](https://www.sizpay.ir/) :heavy_check_mark:
+- [اسنپ‌پی](https://snapppay.ir/) :heavy_check_mark:
 - [تومن](https://tomanpay.net/) :heavy_check_mark:
 - [وندار](https://vandar.io/) :heavy_check_mark:
 - [والتا](https://walleta.ir/) :heavy_check_mark:
@@ -100,7 +102,7 @@
 </div>
 
 ``` bash
-$ composer require shetabit/multipay
+composer require shetabit/multipay
 ```
 
 <div dir="rtl">

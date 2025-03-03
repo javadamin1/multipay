@@ -2,9 +2,9 @@
 
 namespace Shetabit\Multipay\Drivers\Toman;
 
+use GuzzleHttp\Client;
 use Shetabit\Multipay\Invoice;
 use Shetabit\Multipay\Receipt;
-use Illuminate\Support\Facades\Http;
 use Shetabit\Multipay\RedirectionForm;
 use Shetabit\Multipay\Abstracts\Driver;
 use Shetabit\Multipay\Contracts\ReceiptInterface;
@@ -13,6 +13,8 @@ use Shetabit\Multipay\Request;
 
 class Toman extends Driver
 {
+    protected \GuzzleHttp\Client $client;
+
     protected $invoice; // Invoice.
 
     protected $settings; // Driver settings.
@@ -23,9 +25,9 @@ class Toman extends Driver
 
     protected $auth_code;
 
-    protected $code;
+    protected string $code;
 
-    protected $auth_token;
+    protected string $auth_token;
 
     public function __construct(Invoice $invoice, $settings)
     {
@@ -36,6 +38,7 @@ class Toman extends Driver
         $this->auth_code = $this->settings->auth_code;
         $this->code = $this->shop_slug . ':' . $this->auth_code;
         $this->auth_token  = base64_encode($this->code);
+        $this->client = new Client();
     }
 
     // Purchase the invoice, save its transactionId and finaly return it.
@@ -44,19 +47,26 @@ class Toman extends Driver
         $url = $this->base_url . "/users/me/shops/" . $this->shop_slug . "/deals";
         $data = $this->settings->data;
 
-        $response =  Http::withHeaders([
-            'Authorization' => "Basic {$this->auth_token}",
-            "Content-Type" => 'application/json'
-        ])->post($url, $data);
+        $response = $this->client
+            ->request(
+                'POST',
+                $url,
+                [
+                    'json' => $data,
+                    'headers' => [
+                        'Authorization' => "Basic {$this->auth_token}",
+                        "Content-Type" => 'application/json'
+                    ]
+                ]
+            );
 
         $result = json_decode($response->getBody()->getContents(), true);
 
         if (isset($result['trace_number'])) {
             $this->invoice->transactionId($result['trace_number']);
             return $this->invoice->getTransactionId();
-        } else {
-            throw new InvalidPaymentException('پرداخت با مشکل مواجه شد، لطفا با ما در ارتباط باشید');
         }
+        throw new InvalidPaymentException('پرداخت با مشکل مواجه شد، لطفا با ما در ارتباط باشید');
     }
 
     // Redirect into bank using transactionId, to complete the payment.
@@ -80,10 +90,17 @@ class Toman extends Driver
             throw new InvalidPaymentException('پرداخت انجام نشد');
         }
 
-        Http::withHeaders([
-            'Authorization' => "Basic {$this->auth_token}",
-            "Content-Type" => 'application/json'
-        ])->patch($verifyUrl);
+        $this->client
+            ->request(
+                'PATCH',
+                $verifyUrl,
+                [
+                    'headers' => [
+                        'Authorization' => "Basic {$this->auth_token}",
+                        "Content-Type" => 'application/json'
+                    ]
+                ]
+            );
 
         return $this->createReceipt($transactionId);
     }
@@ -92,10 +109,8 @@ class Toman extends Driver
      * Generate the payment's receipt
      *
      * @param $referenceId
-     *
-     * @return Receipt
      */
-    public function createReceipt($referenceId)
+    public function createReceipt($referenceId): \Shetabit\Multipay\Receipt
     {
         return new Receipt('toman', $referenceId);
     }

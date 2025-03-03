@@ -83,9 +83,7 @@ return [
             'cumulativeDynamicPayStatus' => false,
         ],
         'digipay' => [
-            'apiOauthUrl' => 'https://api.mydigipay.com/digipay/api/oauth/token',
-            'apiPurchaseUrl' => 'https://api.mydigipay.info/digipay/api/tickets/business',
-            'apiVerificationUrl' => 'https://api.mydigipay.com/digipay/api/purchases/verify/',
+            'apiPaymentUrl' => 'https://api.mydigipay.com', // with out '/' at the end
             'username' => 'username',
             'password' => 'password',
             'client_id' => '',
@@ -104,15 +102,20 @@ return [
             'callbackUrl' => 'http://yoursite.com/path/to',
             'description' => 'payment using etebarino',
         ],
-        'idpay' => [
-            'apiPurchaseUrl' => 'https://api.idpay.ir/v1.1/payment',
-            'apiPaymentUrl' => 'https://idpay.ir/p/ws/',
-            'apiSandboxPaymentUrl' => 'https://idpay.ir/p/ws-sandbox/',
-            'apiVerificationUrl' => 'https://api.idpay.ir/v1.1/payment/verify',
-            'merchantId' => '',
-            'callbackUrl' => 'http://yoursite.com/path/to',
-            'description' => 'payment using idpay',
-            'sandbox' => false, // set it to true for test environments
+        'irandargah' => [
+            /* Normal api */
+            'apiPurchaseUrl' => 'https://dargaah.com/payment',
+            'apiPaymentUrl' => 'https://dargaah.com/ird/startpay/',
+            'apiVerificationUrl' => 'https://dargaah.com/verification',
+
+            /* Sandbox api */
+            'sandboxApiPurchaseUrl' => ' https://dargaah.com/sandbox/payment',
+            'sandboxApiPaymentUrl' => 'https://dargaah.com/sandbox/ird/startpay/',
+            'sandboxApiVerificationUrl' => 'https://dargaah.com/sandbox/verification',
+
+            'sandbox' => false, // Set it to true for test environments
+            'merchantId' => '', // Set `TEST` for test environments (sandbox)
+            'callbackUrl' => '',
             'currency' => 'R', //Can be R, T (Rial, Toman)
         ],
         'irankish' => [
@@ -131,8 +134,8 @@ return [
             'apiPaymentUrl' => 'https://napi.jibit.ir/ppg/v3',
             'apiKey' => '',
             'apiSecret' => '',
-           // You can change the token storage path in Laravel like this
-           // 'tokenStoragePath' => function_exists('storage_path') ? storage_path('jibit/') : 'jibit/'
+            // You can change the token storage path in Laravel like this
+            // 'tokenStoragePath' => function_exists('storage_path') ? storage_path('jibit/') : 'jibit/'
             'tokenStoragePath' => 'jibit/',
             'callbackUrl' => 'http://yoursite.com/path/to',
             'description' => 'payment using jibit',
@@ -167,25 +170,32 @@ return [
             'description' => 'payment using parsian',
             'currency' => 'T', //Can be R, T (Rial, Toman)
         ],
+        'parspal' => [
+            /* Normal api */
+            'apiPurchaseUrl' => 'https://api.parspal.com/v1/payment/request',
+            'apiVerificationUrl' => 'https://api.parspal.com/v1/payment/verify',
+
+            /* Sandbox api */
+            'sandboxApiPurchaseUrl' => ' https://sandbox.api.parspal.com/v1/payment/request',
+            'sandboxApiVerificationUrl' => 'https://sandbox.api.parspal.com/v1/payment/verify',
+
+            // You can change the cache path in Laravel like this
+            // 'cachePath' => function_exists('storage_path') ? storage_path('parspal/') : 'parspal/'
+            'cachePath' => 'parspal/',
+            'cacheExpireTTL' => 3600, // Cache expire time in seconds
+
+            'sandbox' => false, // Set it to true for test environments
+            'merchantId' => '', // Set `00000000aaaabbbbcccc000000000000` for test environments (sandbox)
+            'callbackUrl' => '',
+            'currency' => 'T', // Can be R, T (Rial, Toman)
+        ],
         'pasargad' => [
-            'apiPaymentUrl' => 'https://pep.shaparak.ir/payment.aspx',
-            'apiGetToken' => 'https://pep.shaparak.ir/Api/v1/Payment/GetToken',
-            'apiCheckTransactionUrl' => 'https://pep.shaparak.ir/Api/v1/Payment/CheckTransactionResult',
-            'apiVerificationUrl' => 'https://pep.shaparak.ir/Api/v1/Payment/VerifyPayment',
+            'baseUrl' => 'https://pep.shaparak.ir/dorsa1',
+            'userName' => '',
+            'password' => '',
             'merchantId' => '',
             'terminalCode' => '',
-            'certificate' => '', // can be string (and set certificateType to xml_string) or an xml file path (and set cetificateType to xml_file)
-            'certificateType' => 'xml_file', // can be: xml_file, xml_string
             'callbackUrl' => 'http://yoursite.com/path/to',
-            'currency' => 'R', //Can be R, T (Rial, Toman)
-        ],
-        'payir' => [
-            'apiPurchaseUrl' => 'https://pay.ir/pg/send',
-            'apiPaymentUrl' => 'https://pay.ir/pg/',
-            'apiVerificationUrl' => 'https://pay.ir/pg/verify',
-            'merchantId' => 'test', // set it to `test` for test environments
-            'callbackUrl' => 'http://yoursite.com/path/to',
-            'description' => 'payment using payir',
             'currency' => 'T', //Can be R, T (Rial, Toman)
         ],
         'paypal' => [
@@ -206,9 +216,9 @@ return [
             'currency' => 'T', //Can be R, T (Rial, Toman)
         ],
         'payping' => [
-            'apiPurchaseUrl' => 'https://api.payping.ir/v2/pay/',
-            'apiPaymentUrl' => 'https://api.payping.ir/v2/pay/gotoipg/',
-            'apiVerificationUrl' => 'https://api.payping.ir/v2/pay/verify/',
+            'apiPurchaseUrl' => 'https://api.payping.ir/v3/pay/',
+            'apiPaymentUrl' => 'https://api.payping.ir/v3/pay/start/',
+            'apiVerificationUrl' => 'https://api.payping.ir/v3/pay/verify/',
             'merchantId' => '',
             'callbackUrl' => 'http://yoursite.com/path/to',
             'description' => 'payment using payping',
@@ -232,6 +242,15 @@ return [
             'callbackUrl' => 'http://yoursite.com/path/to',
             'description' => 'payment using poolam',
             'currency' => 'T', //Can be R, T (Rial, Toman)
+        ],
+        'pna' => [
+            'apiNormalSale' => 'https://pna.shaparak.ir/mhipg/api/Payment/NormalSale',
+            'apiPaymentUrl' => 'https://pna.shaparak.ir/mhui/home/index/',
+            'apiConfirmationUrl' => 'https://pna.shaparak.ir/mhipg/api/Payment/confirm',
+            'CorporationPin' => '',
+            'currency' => 'R',//Can be R, T (Rial, Toman)
+            'callbackUrl' => 'http://yoursite.com/path/to',
+            'description' => 'payment using pna',
         ],
         'sadad' => [
             'apiPaymentByMultiIdentityUrl' => 'https://sadad.shaparak.ir/VPG/api/v0/PaymentByMultiIdentityRequest',
@@ -260,6 +279,7 @@ return [
             'apiPaymentUrl' => 'https://sep.shaparak.ir/payment.aspx',
             'apiVerificationUrl' => 'https://sep.shaparak.ir/payments/referencepayment.asmx?WSDL',
             'merchantId' => '',
+            'password' => '',
             'callbackUrl' => '',
             'description' => 'payment using saman',
             'currency' => 'T', //Can be R, T (Rial, Toman)
@@ -274,21 +294,12 @@ return [
             'currency' => 'T', //Can be R, T (Rial, Toman)
         ],
         'sepehr' => [
-            'apiGetToken' => 'https://mabna.shaparak.ir:8081/V1/PeymentApi/GetToken',
-            'apiPaymentUrl' => 'https://mabna.shaparak.ir:8080/pay',
-            'apiVerificationUrl' => 'https://mabna.shaparak.ir:8081/V1/PeymentApi/Advice',
+            'apiGetToken' => 'https://sepehr.shaparak.ir:8081/V1/PeymentApi/GetToken',
+            'apiPaymentUrl' => 'https://sepehr.shaparak.ir:8080/Pay',
+            'apiVerificationUrl' => 'https://sepehr.shaparak.ir:8081/V1/PeymentApi/Advice',
             'terminalId' => '',
             'callbackUrl' => '',
             'description' => 'payment using sepehr(saderat)',
-            'currency' => 'T', //Can be R, T (Rial, Toman)
-        ],
-        'walleta' => [
-            'apiPurchaseUrl' => 'https://cpg.walleta.ir/payment/request.json',
-            'apiPaymentUrl' => 'https://cpg.walleta.ir/ticket/',
-            'apiVerificationUrl' => 'https://cpg.walleta.ir/payment/verify.json',
-            'merchantId' => '',
-            'callbackUrl' => 'http://yoursite.com/path/to',
-            'description' => 'payment using walleta',
             'currency' => 'T', //Can be R, T (Rial, Toman)
         ],
         'yekpay' => [
@@ -308,9 +319,9 @@ return [
             'apiVerificationUrl' => 'https://api.zarinpal.com/pg/v4/payment/verify.json',
 
             /* sandbox api */
-            'sandboxApiPurchaseUrl' => 'https://sandbox.zarinpal.com/pg/services/WebGate/wsdl',
-            'sandboxApiPaymentUrl' => 'https://sandbox.zarinpal.com/pg/StartPay/',
-            'sandboxApiVerificationUrl' => 'https://sandbox.zarinpal.com/pg/services/WebGate/wsdl',
+            'sandboxApiPurchaseUrl' => 'https://sandbox.zarinpal.com/pg/v4/payment/request.json',
+            'sandboxApiPaymentUrl'  => 'https://sandbox.zarinpal.com/pg/StartPay/',
+            'sandboxApiVerificationUrl' => 'https://sandbox.zarinpal.com/pg/v4/payment/verify.json',
 
             /* zarinGate api */
             'zaringateApiPurchaseUrl' => 'https://ir.zarinpal.com/pg/services/WebGate/wsdl',
@@ -355,6 +366,22 @@ return [
             'username' => '',
             'client_id' => '',
             'password' => '',
+            'callbackUrl' => '',
+            'currency' => 'R', //Can be R, T (Rial, Toman)
+        ],
+        'shepa' => [
+            /* Normal api */
+            'apiPurchaseUrl' => 'https://merchant.shepa.com/api/v1/token',
+            'apiPaymentUrl' => 'https://merchant.shepa.com/v1/',
+            'apiVerificationUrl' => 'https://merchant.shepa.com/api/v1/verify',
+
+            /* Sandbox api */
+            'sandboxApiPurchaseUrl' => 'https://sandbox.shepa.com/api/v1/token',
+            'sandboxApiPaymentUrl' => 'https://sandbox.shepa.com/v1/',
+            'sandboxApiVerificationUrl' => 'https://sandbox.shepa.com/api/v1/verify',
+
+            'sandbox' => false, // Set it to true for test environments
+            'merchantId' => '', // Set `sandbox` for test environments (sandbox)
             'callbackUrl' => '',
             'currency' => 'R', //Can be R, T (Rial, Toman)
         ],
@@ -434,6 +461,28 @@ return [
             'description' => 'payment using Minipay.',
             'currency' => 'T', //Can be R, T (Rial, Toman)
         ],
+        'snapppay' => [
+            'apiPaymentUrl' => 'https://fms-gateway-staging.apps.public.teh-1.snappcloud.io',
+            'callbackUrl' => 'http://yoursite.com/path/to',
+            'username' => 'username',
+            'password' => 'password',
+            'client_id' => '',
+            'client_secret' => '',
+            'description' => 'payment using Snapp Pay.',
+            'currency' => 'T', //Can be R, T (Rial, Toman)
+        ],
+        'daracard' => [
+            'apiPurchaseUrl' => 'https://ipg.daracard.co/api/v0/Request/PaymentRequest/',
+            'getAction' => 'https://ipg.daracard.co/#/purchase/',
+            'apiPaymentUrl' => 'https://ipg.daracard.co/#/purchase/',
+            'apiVerificationUrl' => 'https://ipg.daracard.co/api/v0/Advice/Verify/',
+            'merchantId' => '',
+            'terminalId' => '',
+            'username' => '',
+            'password' => '',
+            'callbackUrl' => 'http://yoursite.com/path/to',
+            'description' => 'payment using daracard',
+        ],
     ],
 
     /*
@@ -457,14 +506,14 @@ return [
         'behpardakht' => \Shetabit\Multipay\Drivers\Behpardakht\Behpardakht::class,
         'digipay' => \Shetabit\Multipay\Drivers\Digipay\Digipay::class,
         'etebarino' => \Shetabit\Multipay\Drivers\Etebarino\Etebarino::class,
-        'idpay' => \Shetabit\Multipay\Drivers\Idpay\Idpay::class,
+        'irandargah' => \Shetabit\Multipay\Drivers\IranDargah\IranDargah::class,
         'irankish' => \Shetabit\Multipay\Drivers\Irankish\Irankish::class,
         'jibit' => \Shetabit\Multipay\Drivers\Jibit\Jibit::class,
         'nextpay' => \Shetabit\Multipay\Drivers\Nextpay\Nextpay::class,
         'omidpay' => \Shetabit\Multipay\Drivers\Omidpay\Omidpay::class,
         'parsian' => \Shetabit\Multipay\Drivers\Parsian\Parsian::class,
+        'parspal' => \Shetabit\Multipay\Drivers\Parspal\Parspal::class,
         'pasargad' => \Shetabit\Multipay\Drivers\Pasargad\Pasargad::class,
-        'payir' => \Shetabit\Multipay\Drivers\Payir\Payir::class,
         'paypal' => \Shetabit\Multipay\Drivers\Paypal\Paypal::class,
         'payping' => \Shetabit\Multipay\Drivers\Payping\Payping::class,
         'paystar' => \Shetabit\Multipay\Drivers\Paystar\Paystar::class,
@@ -473,12 +522,12 @@ return [
         'saman' => \Shetabit\Multipay\Drivers\Saman\Saman::class,
         'sep' => \Shetabit\Multipay\Drivers\SEP\SEP::class,
         'sepehr' => \Shetabit\Multipay\Drivers\Sepehr\Sepehr::class,
-        'walleta' => \Shetabit\Multipay\Drivers\Walleta\Walleta::class,
         'yekpay' => \Shetabit\Multipay\Drivers\Yekpay\Yekpay::class,
         'zarinpal' => \Shetabit\Multipay\Drivers\Zarinpal\Zarinpal::class,
         'zibal' => \Shetabit\Multipay\Drivers\Zibal\Zibal::class,
         'sepordeh' => \Shetabit\Multipay\Drivers\Sepordeh\Sepordeh::class,
         'rayanpay' => \Shetabit\Multipay\Drivers\Rayanpay\Rayanpay::class,
+        'shepa' => \Shetabit\Multipay\Drivers\Shepa\Shepa::class,
         'sizpay' => \Shetabit\Multipay\Drivers\Sizpay\Sizpay::class,
         'vandar' => \Shetabit\Multipay\Drivers\Vandar\Vandar::class,
         'aqayepardakht' => \Shetabit\Multipay\Drivers\Aqayepardakht\Aqayepardakht::class,
@@ -487,5 +536,7 @@ return [
         'toman' => \Shetabit\Multipay\Drivers\Toman\Toman::class,
         'bitpay' => \Shetabit\Multipay\Drivers\Bitpay\Bitpay::class,
         'minipay' => \Shetabit\Multipay\Drivers\Minipay\Minipay::class,
+        'snapppay' => \Shetabit\Multipay\Drivers\SnappPay\SnappPay::class,
+        'pna' => \Shetabit\Multipay\Drivers\Pna\Pna::class
     ]
 ];

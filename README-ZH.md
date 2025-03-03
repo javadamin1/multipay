@@ -73,6 +73,7 @@ For **Laravel** integration you can use [shetabit/payment](https://github.com/sh
 - [payping](https://www.payping.ir/) :heavy_check_mark:
 - [paystar](http://paystar.ir/) :heavy_check_mark:
 - [poolam](https://poolam.ir/) :heavy_check_mark:
+- [pna](https://www.pna.co.ir/) :heavy_check_mark:
 - [rayanpay](https://rayanpay.com/) :heavy_check_mark:
 - [sadad (melli)](https://sadadpsp.ir/) :heavy_check_mark:
 - [saman](https://www.sep.ir) :heavy_check_mark:
@@ -81,6 +82,7 @@ For **Laravel** integration you can use [shetabit/payment](https://github.com/sh
 - [sepordeh](https://sepordeh.com/) :heavy_check_mark:
 - [sizpay](https://www.sizpay.ir/) :heavy_check_mark:
 - [toman](https://tomanpay.net/) :heavy_check_mark:
+- [snapppay](https://snapppay.ir/) :heavy_check_mark:
 - [vandar](https://vandar.io/) :heavy_check_mark:
 - [walleta (Installment payment)](https://walleta.ir/) :heavy_check_mark:
 - [yekpay](https://yekpay.com/) :heavy_check_mark:
@@ -108,7 +110,7 @@ For **Laravel** integration you can use [shetabit/payment](https://github.com/sh
 通过 Composer
 
 ``` bash
-$ composer require shetabit/multipay
+composer require shetabit/multipay
 ```
 
 ## 配置

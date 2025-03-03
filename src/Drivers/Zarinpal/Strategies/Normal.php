@@ -19,7 +19,7 @@ class Normal extends Driver
      *
      * @var object
      */
-    protected $client;
+    protected \GuzzleHttp\Client $client;
 
     /**
      * Invoice
@@ -39,7 +39,6 @@ class Normal extends Driver
      * Zarinpal constructor.
      * Construct the class with the relevant settings.
      *
-     * @param Invoice $invoice
      * @param $settings
      */
     public function __construct(Invoice $invoice, $settings)
@@ -108,8 +107,6 @@ class Normal extends Driver
 
     /**
      * Pay the Invoice
-     *
-     * @return RedirectionForm
      */
     public function pay(): RedirectionForm
     {
@@ -123,7 +120,6 @@ class Normal extends Driver
     /**
      * Verify payment
      *
-     * @return ReceiptInterface
      *
      * @throws InvalidPaymentException
      */
@@ -176,18 +172,14 @@ class Normal extends Driver
      * Generate the payment's receipt
      *
      * @param $referenceId
-     *
-     * @return Receipt
      */
-    public function createReceipt($referenceId)
+    public function createReceipt($referenceId): \Shetabit\Multipay\Receipt
     {
         return new Receipt('zarinpal', $referenceId);
     }
 
     /**
      * Retrieve purchase url
-     *
-     * @return string
      */
     protected function getPurchaseUrl(): string
     {
@@ -196,8 +188,6 @@ class Normal extends Driver
 
     /**
      * Retrieve Payment url
-     *
-     * @return string
      */
     protected function getPaymentUrl(): string
     {
@@ -206,8 +196,6 @@ class Normal extends Driver
 
     /**
      * Retrieve verification url
-     *
-     * @return string
      */
     protected function getVerificationUrl(): string
     {
@@ -221,7 +209,7 @@ class Normal extends Driver
      *
      * @return mixed|string
      */
-    private function translateStatus($status)
+    private function translateStatus($status): string
     {
         $translations = [
             '100' => 'تراکنش با موفقیت انجام گردید',
